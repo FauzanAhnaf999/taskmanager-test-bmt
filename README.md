@@ -16,13 +16,18 @@ Aplikasi ini terdiri dari backend (Laravel API) dan frontend (file HTML statis).
 ### 1. Menjalankan Backend (Server Laravel)
 
 1.  **Clone repositori ini.**
-2.  Masuk ke direktori proyek: `cd task-manager-app`
+2.  Masuk ke direktori proyek: `cd taskmanager-test-bmt`
 3.  Install semua dependensi PHP: `composer install`
 4.  Salin file `.env.example` menjadi `.env`: `cp .env.example .env`
 5.  Buat *Application Key* baru: `php artisan key:generate`
-6.  Buat sebuah database kosong di phpMyAdmin (misal: `task_manager_db`).
+6.  **Setup Database:**
+    * Buka **XAMPP** dan jalankan layanan **Apache** & **MySQL**.
+    * Buka **phpMyAdmin** dan buat database baru dengan nama, misalnya, `task_manager_db`.
 7.  Sesuaikan konfigurasi database di dalam file `.env`:
     ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
     DB_DATABASE=task_manager_db
     DB_USERNAME=root
     DB_PASSWORD=
@@ -34,9 +39,9 @@ Server backend sekarang berjalan di `http://127.0.0.1:8000`.
 
 ### 2. Menjalankan Frontend
 
-1.  Pastikan Anda memiliki server web lokal seperti XAMPP dan layanan **Apache** sudah berjalan.
+1.  Pastikan layanan **Apache** di XAMPP Anda sudah berjalan.
 2.  Buka browser dan akses file `index.html` yang ada di dalam folder `public`.
-3.  URL-nya akan terlihat seperti ini: `http://localhost/task-manager-app/public/index.html`
+3.  URL-nya akan terlihat seperti ini: `http://localhost/taskmanager-test-bmt/public/index.html`
 
 Aplikasi sekarang siap digunakan.
 
