@@ -1,61 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Task Manager - Fullstack Developer Test
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi sederhana untuk mengelola daftar tugas (Task Manager) yang dibangun sebagai bagian dari tes Fullstack Developer. Aplikasi ini memiliki fitur CRUD (Create, Read, Update, Delete) yang lengkap.
 
-## About Laravel
+## Tech Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Backend:** Laravel 12
+- **Database:** MySQL
+- **Frontend:** HTML, JavaScript (ES6+), Bootstrap 5
+- **Interaksi:** AJAX (menggunakan Fetch API)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Cara Menjalankan Aplikasi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Aplikasi ini terdiri dari backend (Laravel API) dan frontend (file HTML statis). Keduanya perlu dijalankan secara bersamaan.
 
-## Learning Laravel
+### 1. Menjalankan Backend (Server Laravel)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1.  **Clone repositori ini.**
+2.  Masuk ke direktori proyek: `cd task-manager-app`
+3.  Install semua dependensi PHP: `composer install`
+4.  Salin file `.env.example` menjadi `.env`: `cp .env.example .env`
+5.  Buat *Application Key* baru: `php artisan key:generate`
+6.  Buat sebuah database kosong di phpMyAdmin (misal: `task_manager_db`).
+7.  Sesuaikan konfigurasi database di dalam file `.env`:
+    ```env
+    DB_DATABASE=task_manager_db
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+8.  Jalankan migrasi untuk membuat tabel di database: `php artisan migrate`
+9.  Jalankan server development Laravel: `php artisan serve`
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Server backend sekarang berjalan di `http://127.0.0.1:8000`.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Menjalankan Frontend
 
-## Laravel Sponsors
+1.  Pastikan Anda memiliki server web lokal seperti XAMPP dan layanan **Apache** sudah berjalan.
+2.  Buka browser dan akses file `index.html` yang ada di dalam folder `public`.
+3.  URL-nya akan terlihat seperti ini: `http://localhost/task-manager-app/public/index.html`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Aplikasi sekarang siap digunakan.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Jawaban Pertanyaan Teori
 
-## Contributing
+### 1. Jelaskan apa itu CORS!
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**CORS (Cross-Origin Resource Sharing)** adalah sebuah mekanisme keamanan yang ada di dalam browser. Tujuannya adalah untuk **membatasi** sebuah website (`http://situs-A.com`) agar tidak bisa sembarangan meminta data dari website lain (`http://situs-B.com`).
 
-## Code of Conduct
+Secara default, browser akan memblokir permintaan seperti ini untuk mencegah pencurian data. Agar permintaan diizinkan, server tujuan (`situs-B.com`) harus secara eksplisit memberikan izin melalui HTTP Header, contohnya `Access-Control-Allow-Origin`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Dalam proyek ini, kita mengalami CORS. Frontend kita berjalan di `http://localhost` (melalui XAMPP) dan mencoba meminta data dari backend di `http://127.0.0.1:8000` (melalui `php artisan serve`). Karena "origin" (alamat) nya berbeda, kita harus mengkonfigurasi file `config/cors.php` di Laravel untuk mengizinkan permintaan tersebut.
 
-## Security Vulnerabilities
+### 2. Jelaskan tentang Asynchronous!
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Asynchronous** (atau "asinkron") adalah model eksekusi program di mana sebuah tugas bisa dijalankan **tanpa harus menunggu tugas sebelumnya selesai**. Ini kebalikan dari **Synchronous** (sinkron), di mana setiap tugas harus menunggu giliran secara berurutan.
 
-## License
+Analogi sederhananya:
+* **Synchronous:** Melakukan panggilan telepon. Anda harus menunggu orang di seberang menjawab dan menyelesaikan percakapan sebelum bisa melakukan hal lain.
+* **Asynchronous:** Mengirim pesan WhatsApp. Anda bisa mengirim pesan, lalu langsung melanjutkan aktivitas lain. Anda akan mendapat notifikasi saat pesan tersebut dibalas, tanpa harus terus-menerus menunggu.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Dalam pengembangan web, JavaScript menggunakan Asynchronous secara ekstensif untuk tugas-tugas yang memakan waktu, seperti mengambil data dari API. Di proyek ini, saat tombol ditekan untuk mengambil data, kita menggunakan **`fetch()`** yang bersifat asinkron. Halaman web tidak "freeze" atau macet; ia tetap responsif sambil menunggu data datang dari server Laravel. Ini adalah inti dari **AJAX**.
+
+### 3. Apa saja yang bisa mengurangi *load time* website?
+
+Mengurangi *load time* adalah proses optimasi untuk membuat website lebih cepat dimuat. Beberapa cara utamanya adalah:
+
+* **Optimasi Aset (Gambar, CSS, JS):**
+    * **Kompresi Gambar:** Mengurangi ukuran file gambar tanpa menurunkan kualitas secara drastis, menggunakan format modern seperti WebP.
+    * **Minify CSS & JavaScript:** Menghapus semua karakter yang tidak perlu (seperti spasi dan komentar) dari kode untuk memperkecil ukuran file.
+    * **Code Bundling:** Menggabungkan beberapa file CSS atau JavaScript menjadi satu file tunggal untuk mengurangi jumlah permintaan (HTTP requests) ke server.
+
+* **Optimasi Server & Backend:**
+    * **Caching:** Menyimpan data yang sering diakses (seperti hasil query database) di memori (contoh: Redis) agar tidak perlu mengambilnya berulang kali dari sumber yang lambat.
+    * **Query Database yang Efisien:** Memastikan query ke database berjalan cepat, misalnya dengan menggunakan *indexing*.
+    * **Server Response Time:** Memilih hosting yang cepat dan berlokasi dekat dengan target pengguna.
+
+* **Penggunaan Jaringan:**
+    * **Gunakan CDN (Content Delivery Network):** Menyimpan aset statis (gambar, CSS, JS) di berbagai server di seluruh dunia. Pengguna akan mengunduh aset dari server yang lokasinya paling dekat, sehingga lebih cepat.
+    * **Enable Gzip/Brotli Compression:** Mengompres file di sisi server sebelum dikirim ke browser, sehingga ukuran transfer data menjadi jauh lebih kecil.
