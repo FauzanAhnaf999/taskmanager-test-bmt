@@ -44,6 +44,7 @@ Server backend sekarang berjalan di `http://127.0.0.1:8000`.
 3.  URL-nya akan terlihat seperti ini: `http://localhost/taskmanager-test-bmt/public/index.html`
 
 Aplikasi sekarang siap digunakan.
+Video Simulasi Fungsionalitas : https://drive.google.com/file/d/1tzpku9bFTRRFa7UH89Ckt1szbIYgenuu/view?usp=drive_link
 
 ---
 
